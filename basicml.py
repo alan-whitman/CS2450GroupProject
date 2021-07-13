@@ -22,7 +22,9 @@ class BasicML:
         """
 
     def run_instruction(self):
+
         """ 
+            Jarrett Minton
             private
             Run the next instruction, which should be in the instruction register when this is called.
         """
@@ -30,10 +32,11 @@ class BasicML:
 
     def log_error(self, error_msg):
         """  
+            Jarrett Minton
             private
             Print an error to the console in a standardized format
         """
-        pass
+        print("ERROR: " + error_msg)
 
     def dump(self):
         """ 
