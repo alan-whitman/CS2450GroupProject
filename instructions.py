@@ -1,4 +1,7 @@
-'''Instruction methods for VM.'''
+'''
+Instruction methods for VM
+By Jarrett Minton, Utah Valley University
+'''
 
 def mem_loc_gen(location):
     '''Generate memory location from operand string.'''
@@ -35,4 +38,34 @@ def store(memory, operand, accum):
     mem_loc = mem_loc_gen(operand)
     memory[mem_loc] = accum
 
+def add(memory, operand, accum):
+    '''Add a word from a specific location in memory
+    to the word in the accumulator and leave the result
+    in the accumula'''
+    mem_loc = mem_loc_gen(operand)
+    word_to_add = int(memory[mem_loc])
+    return str(int(accum) + word_to_add)
 
+def subtract(memory, operand, accum):
+    '''Subtract a word from a specific location in memory 
+    from the word in the accumulator and leave the result
+     in the accumulato'''
+    mem_loc = mem_loc_gen(operand)
+    word_to_subtract = int(memory[mem_loc])
+    return str(int(accum) - word_to_subtract)
+
+def divide(memory, operand, accum):
+    '''Divide the word in the accumulator by a word from a 
+    specific location in memory and leave the result in the 
+    accumulator'''
+    mem_loc = mem_loc_gen(operand)
+    word_to_divide = int(memory[mem_loc])
+    return str(int(accum) / word_to_divide)
+
+def multiply(memory, operand, accum):
+    '''Multiply a word from a specific location in memory to 
+    the word in the accumulator and leave the result in the
+    accumulato'''
+    mem_loc = mem_loc_gen(operand)
+    word_to_multi = int(memory[mem_loc])
+    return str(int(accum) * word_to_multi)
