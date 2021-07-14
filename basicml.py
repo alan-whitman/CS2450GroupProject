@@ -52,6 +52,22 @@ class BasicML:
         """
         pass
 
+    def validate_program(self):
+        """
+            public
+            Validates each instruction in the program. If errors are found, prints appropriate error messages.
+            Returns True if each instruction is valid, False otherwise.
+            Assumes that the last instruction entered is the one immediately before whatever instruction_counter
+            points to.
+        """
+        program_is_valid = True
+        for i in range(0, self.instruction_counter):
+            instruction_is_valid = self.validate_instruction(self.memory[i])
+            if not instruction_is_valid:
+                program_is_valid = False
+                self.log_error(f"Instruction in memory location {i:02} is invalid")
+        return program_is_valid
+
     def get_next_instruction(self):
         """ 
             public
@@ -65,7 +81,18 @@ class BasicML:
                     counter should be incremented.
                 4.  Return false once the user inputs -99999
         """
-        pass
+        print(f"{self.instruction_counter:02} ? ", end="")
+        user_input = input()
+        if user_input == "-99999":
+            return False
+        instruction = 0
+        try:
+            instruction = int(user_input)
+        except:
+            instruction = -1
+        self.memory[self.instruction_counter] = instruction
+        self.instruction_counter += 1
+        return True
 
     def run_program(self):
         """ 
