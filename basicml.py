@@ -6,20 +6,34 @@ class BasicML:
         self.instruction_register = 0
         self.operation_code = 0
         self.operand = 0
+        self.opcodes = {
+            'READ': 10, 
+            'WRITE': 11, 
+            'LOAD': 20, 
+            'STORE': 21,
+            'ADD': 30, 
+            'SUBTRACT': 31, 
+            'DIVIDE': 32, 
+            'MULTIPLY': 33, 
+            'BRANCH': 40, 
+            'BRANCHNEG': 41,
+            'BRANCHZERO': 42,
+            'HALT': 43
+        }
 
     def validate_instruction(self, instruction):
         """ 
             private
             Validate a given instruction. Return True if the instruction is valid, False otherwise.
         """
-        pass
+        return instruction in self.opcodes or isinstance(instruction, int)
 
     def validate_user_input(self):
         """
             private
             Validate user input. Should always be a negative or positive integer with a maximum of 4 
             digits. Return True if valid, False otherwise.
-        """
+        """  
 
     def run_instruction(self):
 
@@ -107,4 +121,20 @@ class BasicML:
                         should be stopped.
                     e.  Increment the instruction counter.
         """
+
+        self.instruction_counter = 0
+        while True:
+            currentInstruction = self.memory[self.instruction_counter]
+            if currentInstruction == 43:
+                print('*** Run completed ***')
+                break
+
+            elif self.validate_instruction(currentInstruction):
+                self.instruction_register = currentInstruction
+                self.run_instruction(currentInstruction)
+                self.instruction_counter += 1
+
+            else:
+                self.log_error('Instruction invalid.')
+                break
         pass
