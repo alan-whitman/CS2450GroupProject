@@ -7,15 +7,15 @@ class BasicML:
         self.operation_code = 0
         self.operand = 0
         self.opcodes = {
-            'READ': 10, 
-            'WRITE': 11, 
-            'LOAD': 20, 
+            'READ': 10,
+            'WRITE': 11,
+            'LOAD': 20,
             'STORE': 21,
-            'ADD': 30, 
-            'SUBTRACT': 31, 
-            'DIVIDE': 32, 
-            'MULTIPLY': 33, 
-            'BRANCH': 40, 
+            'ADD': 30,
+            'SUBTRACT': 31,
+            'DIVIDE': 32,
+            'MULTIPLY': 33,
+            'BRANCH': 40,
             'BRANCHNEG': 41,
             'BRANCHZERO': 42,
             'HALT': 43
@@ -33,10 +33,9 @@ class BasicML:
             private
             Validate user input. Should always be a negative or positive integer with a maximum of 4 
             digits. Return True if valid, False otherwise.
-        """  
+        """
 
     def run_instruction(self):
-
         """ 
             Jarrett Minton
             private
@@ -57,14 +56,27 @@ class BasicML:
             public
             Dump register and memory to console, as per spec. 
         """
-        pass
+        print("REGISTER:")
+        print(f"Accumulator: {self.accumulator}")
+        print(f"InstructionCounter: {self.instruction_counter}")
+        print(f"InstructionRegister: {self.instruction_register}")
+        print(f"OperationCode: {self.operation_code}")
+        print(f"Operand: {self.operand}\n")
+
+        print("MEMORY:")
 
     def initial_prompt(self):
         """ 
             public
             Print out initial prompt with instructions, as per spec 
         """
-        pass
+        print("*** Welcome to UVSim! ***")
+        print("*** Please enter your program one instruction ***")
+        print("*** (or data word) at a time into the input ***")
+        print("*** text field. I will display the location ***")
+        print("*** number and a question mar(?). You then ***")
+        print("*** type the word for that location. Enter ***")
+        print("*** -99999 to stop entering your program. ***")
 
     def validate_program(self):
         """
@@ -79,7 +91,8 @@ class BasicML:
             instruction_is_valid = self.validate_instruction(self.memory[i])
             if not instruction_is_valid:
                 program_is_valid = False
-                self.log_error(f"Instruction in memory location {i:02} is invalid")
+                self.log_error(
+                    f"Instruction in memory location {i:02} is invalid")
         return program_is_valid
 
     def get_next_instruction(self):
