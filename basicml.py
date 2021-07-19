@@ -34,6 +34,16 @@ class BasicML:
             Validate user input. Should always be a negative or positive integer with a maximum of 4 
             digits. Return True if valid, False otherwise.
         """
+        user_input = input()
+        if user_input[0] == "-":
+            if len(user_input) > 5:
+                print("ERROR, Invalid input.")
+            elif int(user_input[1:]) and len(user_input) < 5:
+                pass
+        elif len(user_input) > 4:
+            print("ERROR, Invalid input.")
+        elif int(user_input) and len(user_input) < 4:
+            pass
 
     def run_instruction(self):
         """ 
