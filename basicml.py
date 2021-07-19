@@ -140,13 +140,12 @@ class BasicML:
                 1.  Reset the instrucion counter to 0
                 2.  Start a loop that does the following:
                     a.  Validates the instruction at the location of the instruction counter.
-                    b.  If the instruction is valid, put it in the instruction register, then call run_instruction
+                    b.  If the instruction is valid, put it in the instruction register, then increment the
+                        instruction counter and call run_instruction
                     c.  If the instruction is invalid, print an appropriate error and stops execution
                     d.  If a HALT instruction is reached, an appropriate message should be printed and execution
                         should be stopped.
-                    e.  Increment the instruction counter.
         """
-
         self.instruction_counter = 0
         while True:
             currentInstruction = self.memory[self.instruction_counter]
@@ -160,6 +159,5 @@ class BasicML:
                 self.run_instruction()
 
             else:
-                self.log_error('Instruction invalid.')
+                self.log_error(f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution")
                 break
-        pass
