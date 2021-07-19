@@ -3,92 +3,88 @@ Instruction methods for VM
 By Jarrett Minton, Utah Valley University
 '''
 
-def mem_loc_gen(location):
-    '''Generate memory location from operand string.'''
-    mem_loc = str(location)
-    if mem_loc[0:1] == '0':
-        mem_loc = mem_loc[1:]
-    if mem_loc[0:1] == '0':
-        mem_loc = mem_loc[1:]
-    mem_loc = int(mem_loc)
-    return mem_loc
+def validate_user_input(user_input):
+    """
+        Validate user input. Should always be a negative or positive integer with a maximum of 4 
+        digits. Return True if valid, False otherwise.
+    """
+    try:
+        n = int(user_input)
+        if n < -9999 or n > 9999:
+            return False
+        return True
+    except:
+        return False
 
 def read(memory, operand):
     '''Reads a word from the keyboard into
     the specific location in memory.'''
-    mem_loc = mem_loc_gen(operand)
-    read = input("READ >> ")
-    memory[mem_loc] = read
+    is_valid_input = False
+    while not is_valid_input:
+        user_input = input("Enter an integer: ")
+        if (validate_user_input(user_input)):
+            memory[operand] = int(user_input)
+            is_valid_input = True
+        else:
+            print("Invalild input.")
 
 def write(memory, operand):
     '''Write a word from the specific location 
     in memory to screen.'''
-    mem_loc = mem_loc_gen(operand)
-    print("WRITE >> " + memory[mem_loc])
+    print(f"Contents of {operand} is {memory[operand]}")
 
 def load(memory, operand):
     '''Load a word from a specific location in memory. 
     MAKE SURE TO INSTANTIATE ACCUMULATOR TO THIS FUNC'''
-    mem_loc = mem_loc_gen(operand)
-    return memory[mem_loc]
+    return memory[operand]
 
 def store(memory, operand, accum):
     '''Store a word from the accumulator into a 
     specific location in memory.'''
-    mem_loc = mem_loc_gen(operand)
-    memory[mem_loc] = accum
+    memory[operand] = accum
 
 def add(memory, operand, accum):
     '''Add a word from a specific location in memory
     to the word in the accumulator and leave the result
     in the accumula'''
-    mem_loc = mem_loc_gen(operand)
-    word_to_add = int(memory[mem_loc])
-    return str(int(accum) + word_to_add)
+    word_to_add = memory[operand]
+    return accum + word_to_add
 
 def subtract(memory, operand, accum):
     '''Subtract a word from a specific location in memory 
     from the word in the accumulator and leave the result
      in the accumulato'''
-    mem_loc = mem_loc_gen(operand)
-    word_to_subtract = int(memory[mem_loc])
-    return str(int(accum) - word_to_subtract)
+    word_to_subtract = memory[operand]
+    return accum - word_to_subtract
 
 def divide(memory, operand, accum):
     '''Divide the word in the accumulator by a word from a 
     specific location in memory and leave the result in the 
     accumulator'''
-    mem_loc = mem_loc_gen(operand)
-    word_to_divide = int(memory[mem_loc])
-    return str(int(accum) / word_to_divide)
+    word_to_divide = memory[operand]
+    return accum // word_to_divide
 
 def multiply(memory, operand, accum):
     '''Multiply a word from a specific location in memory to 
     the word in the accumulator and leave the result in the
     accumulato'''
-    mem_loc = mem_loc_gen(operand)
-    word_to_multi = int(memory[mem_loc])
-    return str(int(accum) * word_to_multi)
+    word_to_multi = memory[operand]
+    return accum * word_to_multi
 
 def branch(operand):
     '''Branch to a specific location in memory
        Set to counter.
     '''
-    mem_loc = mem_loc_gen(operand)
-    return mem_loc
+    return operand
 
-def branchneg(operand, accum):
+def branchneg(operand, accum, current_instruction_counter):
     '''Branch to a specific location in memory if the accumulator is negative'''
-    mem_loc = mem_loc_gen(operand)
     if accum < 0:
-        return mem_loc
+        return operand
+    return current_instruction_counter
 
-def branchzero(operand, accum):
+def branchzero(operand, accum, current_instruction_counter):
     '''Branch to a specific location in memory if the accumulator is zero'''
-    mem_loc = mem_loc_gen(operand)
     if accum == 0:
-        return mem_loc
-
-def halt():
-    '''Halt program'''
-    input("HALT")
+        return operand
+    return current_instruction_counter

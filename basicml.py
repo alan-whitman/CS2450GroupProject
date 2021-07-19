@@ -20,23 +20,6 @@ class BasicML:
             return False
         return (instruction // 100) in [10, 11, 20, 21, 30, 31, 32, 33, 40, 41, 42]
 
-    def validate_user_input(self):
-        """
-            private
-            Validate user input. Should always be a negative or positive integer with a maximum of 4 
-            digits. Return True if valid, False otherwise.
-        """
-        user_input = input()
-        if user_input[0] == "-":
-            if len(user_input) > 5:
-                print("ERROR, Invalid input.")
-            elif int(user_input[1:]) and len(user_input) < 5:
-                pass
-        elif len(user_input) > 4:
-            print("ERROR, Invalid input.")
-        elif int(user_input) and len(user_input) < 4:
-            pass
-
     def run_instruction(self):
         """ 
             Jarrett Minton
@@ -47,35 +30,29 @@ class BasicML:
         self.operand = self.instruction_register % 100
 
         if self.operation_code == 10:
-            ins.read(self.memory, self.operation_code)
+            ins.read(self.memory, self.operand)
         elif self.operation_code == 11:
-            ins.write(self.memory, self.operation_code)
+            ins.write(self.memory, self.operand)
         elif self.operation_code == 20:
-            ins.load(self.memory, self.operation_code)
+            self.accumulator = ins.load(self.memory, self.operand)
         elif self.operation_code == 21:
-            ins.store(self.memory, self.operation_code, self.accumulator)
-
+            ins.store(self.memory, self.operand, self.accumulator)
 
         elif self.operation_code == 30:
-            self.accumulator = ins.add(self.memory, self.operation_code, self.accumulator)
+            self.accumulator = ins.add(self.memory, self.operand, self.accumulator)
         elif self.operation_code == 31:
-            self.accumulator = ins.subtract(self.memory, self.operation_code, self.accumulator)
+            self.accumulator = ins.subtract(self.memory, self.operand, self.accumulator)
         elif self.operation_code == 32:
-            self.accumulator = ins.divide(self.memory, self.operation_code, self.accumulator)
+            self.accumulator = ins.divide(self.memory, self.operand, self.accumulator)
         elif self.operation_code == 33:
-            self.accumulator = ins.multiply(self.memory, self.operation_code, self.accumulator)
+            self.accumulator = ins.multiply(self.memory, self.operand, self.accumulator)
 
         elif self.operation_code == 40:
-            self.instruction_counter = ins.branch(self.operation_code)
+            self.instruction_counter = ins.branch(self.operand)
         elif self.operation_code == 41:
-            self.instruction_counter = ins.branchneg(self.operation_code, self.accumulator)
+            self.instruction_counter = ins.branchneg(self.operand, self.accumulator, self.instruction_counter)
         elif self.operation_code == 42:
-            self.instruction_counter = ins.branchzero(self.operation_code, self.accumulator)
-        
-        elif self.operation_code == 43:
-            ins.halt()
-        
-
+            self.instruction_counter = ins.branchzero(self.operand, self.accumulator, self.instruction_counter)        
 
     def log_error(self, error_msg):
         """  
@@ -91,7 +68,7 @@ class BasicML:
             Dump register and memory to console, as per spec. 
         """
 
-        print("REGISTER:")
+        print("REGISTERS:")
         print(f"Accumulator: {self.accumulator:05}")
         print(f"InstructionCounter: {self.instruction_counter:02}")
         print(f"InstructionRegister: {self.instruction_register:05}")
@@ -184,7 +161,7 @@ class BasicML:
         while True:
             currentInstruction = self.memory[self.instruction_counter]
             if currentInstruction == 43:
-                print('*** Run completed ***')
+                print('\n*** Run completed ***\n')
                 break
 
             elif self.validate_instruction(currentInstruction):

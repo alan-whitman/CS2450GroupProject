@@ -8,7 +8,7 @@ def main():
     print("*** Loading Program... ***")
     program_is_valid = bml.validate_program()
     if program_is_valid:
-        print("*** Program loading completed ***\n*** Program execution begins ***")
+        print("*** Program loading completed ***\n*** Program execution begins ***\n")
         bml.run_program()
     else:
         print("*** Program contains invalid instructions. Unable to execute ***")
