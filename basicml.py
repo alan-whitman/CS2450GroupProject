@@ -8,27 +8,17 @@ class BasicML:
         self.instruction_register = 0
         self.operation_code = 0
         self.operand = 0
-        self.opcodes = {
-            'READ': 10, 
-            'WRITE': 11, 
-            'LOAD': 20, 
-            'STORE': 21,
-            'ADD': 30, 
-            'SUBTRACT': 31, 
-            'DIVIDE': 32, 
-            'MULTIPLY': 33, 
-            'BRANCH': 40, 
-            'BRANCHNEG': 41,
-            'BRANCHZERO': 42,
-            'HALT': 43
-        }
 
     def validate_instruction(self, instruction):
         """ 
             private
             Validate a given instruction. Return True if the instruction is valid, False otherwise.
         """
-        return instruction in self.opcodes or isinstance(instruction, int)
+        if instruction == 43:
+            return True
+        if (instruction < 1000 or instruction > 4299):
+            return False
+        return (instruction // 100) in [10, 11, 20, 21, 30, 31, 32, 33, 40, 41, 42]
 
     def validate_user_input(self):
         """
@@ -36,6 +26,7 @@ class BasicML:
             Validate user input. Should always be a negative or positive integer with a maximum of 4 
             digits. Return True if valid, False otherwise.
         """  
+        pass
 
     def run_instruction(self):
 
@@ -44,6 +35,9 @@ class BasicML:
             private
             Run the next instruction, which should be in the instruction register when this is called.
         """
+        self.operation_code = self.instruction_register // 100
+        self.operand = self.instruction_register % 100
+
         if self.operation_code == 10:
             ins.read(self.memory, self.operation_code)
         elif self.operation_code == 11:
@@ -162,8 +156,8 @@ class BasicML:
 
             elif self.validate_instruction(currentInstruction):
                 self.instruction_register = currentInstruction
-                self.run_instruction(currentInstruction)
                 self.instruction_counter += 1
+                self.run_instruction()
 
             else:
                 self.log_error('Instruction invalid.')
