@@ -69,3 +69,26 @@ def multiply(memory, operand, accum):
     mem_loc = mem_loc_gen(operand)
     word_to_multi = int(memory[mem_loc])
     return str(int(accum) * word_to_multi)
+
+def branch(operand):
+    '''Branch to a specific location in memory
+       Set to counter.
+    '''
+    mem_loc = mem_loc_gen(operand)
+    return mem_loc
+
+def branchneg(operand, accum):
+    '''Branch to a specific location in memory if the accumulator is negative'''
+    mem_loc = mem_loc_gen(operand)
+    if accum < 0:
+        return mem_loc
+
+def branchzero(operand, accum):
+    '''Branch to a specific location in memory if the accumulator is zero'''
+    mem_loc = mem_loc_gen(operand)
+    if accum == 0:
+        return mem_loc
+
+def halt():
+    '''Halt program'''
+    input("HALT")
