@@ -92,22 +92,22 @@ class BasicML:
         """
 
         print("REGISTER:")
-        print(f"Accumulator: {self.accumulator}")
-        print(f"InstructionCounter: {self.instruction_counter}")
-        print(f"InstructionRegister: {self.instruction_register}")
-        print(f"OperationCode: {self.operation_code}")
-        print(f"Operand: {self.operand}\n")
+        print(f"Accumulator: {self.accumulator:05}")
+        print(f"InstructionCounter: {self.instruction_counter:02}")
+        print(f"InstructionRegister: {self.instruction_register:05}")
+        print(f"OperationCode: {self.operation_code:02}")
+        print(f"Operand: {self.operand:02}\n")
 
         print("MEMORY:")
 
-        print("{:<3} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7}".format(
+        print("{:<3} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5}".format(
             "  ", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09"))
 
         x = ["00", "10", "20", "30", "40", "50", "60", "70", "80", "90"]
 
         count = 0
         for i in range(0, len(x)):
-            print("{:<3} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7}".format(
+            print("{:<3} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5}".format(
                 x[i], self.memory[count], self.memory[count+1], self.memory[count+2], self.memory[count+3], self.memory[count+4], self.memory[count+5], self.memory[count+6], self.memory[count+7], self.memory[count+8], self.memory[count+9]))
             count += 10
 
@@ -193,5 +193,5 @@ class BasicML:
                 self.run_instruction()
 
             else:
-                self.log_error(f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution")
+                self.log_error(f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution.")
                 break
