@@ -25,11 +25,19 @@ class BasicML:
             private
             Validate user input. Should always be a negative or positive integer with a maximum of 4 
             digits. Return True if valid, False otherwise.
-        """  
-        pass
+        """
+        user_input = input()
+        if user_input[0] == "-":
+            if len(user_input) > 5:
+                print("ERROR, Invalid input.")
+            elif int(user_input[1:]) and len(user_input) < 5:
+                pass
+        elif len(user_input) > 4:
+            print("ERROR, Invalid input.")
+        elif int(user_input) and len(user_input) < 4:
+            pass
 
     def run_instruction(self):
-
         """ 
             Jarrett Minton
             private
@@ -82,14 +90,39 @@ class BasicML:
             public
             Dump register and memory to console, as per spec. 
         """
-        pass
+
+        print("REGISTER:")
+        print(f"Accumulator: {self.accumulator}")
+        print(f"InstructionCounter: {self.instruction_counter}")
+        print(f"InstructionRegister: {self.instruction_register}")
+        print(f"OperationCode: {self.operation_code}")
+        print(f"Operand: {self.operand}\n")
+
+        print("MEMORY:")
+
+        print("{:<3} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7}".format(
+            "  ", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09"))
+
+        x = ["00", "10", "20", "30", "40", "50", "60", "70", "80", "90"]
+
+        count = 0
+        for i in range(0, len(x)):
+            print("{:<3} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7} {:<7}".format(
+                x[i], self.memory[count], self.memory[count+1], self.memory[count+2], self.memory[count+3], self.memory[count+4], self.memory[count+5], self.memory[count+6], self.memory[count+7], self.memory[count+8], self.memory[count+9]))
+            count += 10
 
     def initial_prompt(self):
         """ 
             public
             Print out initial prompt with instructions, as per spec 
         """
-        pass
+        print("*** Welcome to UVSim! ***")
+        print("*** Please enter your program one instruction ***")
+        print("*** (or data word) at a time into the input ***")
+        print("*** text field. I will display the location ***")
+        print("*** number and a question mar(?). You then ***")
+        print("*** type the word for that location. Enter ***")
+        print("*** -99999 to stop entering your program. ***")
 
     def validate_program(self):
         """
@@ -104,7 +137,8 @@ class BasicML:
             instruction_is_valid = self.validate_instruction(self.memory[i])
             if not instruction_is_valid:
                 program_is_valid = False
-                self.log_error(f"Instruction in memory location {i:02} is invalid")
+                self.log_error(
+                    f"Instruction in memory location {i:02} is invalid")
         return program_is_valid
 
     def get_next_instruction(self):
