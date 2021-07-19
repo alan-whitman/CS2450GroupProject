@@ -1,3 +1,5 @@
+import instructions as ins
+
 class BasicML:
     def __init__(self):
         self.memory = [0] * 100
@@ -42,7 +44,36 @@ class BasicML:
             private
             Run the next instruction, which should be in the instruction register when this is called.
         """
-        pass
+        if self.operation_code == 10:
+            ins.read(self.memory, self.operation_code)
+        elif self.operation_code == 11:
+            ins.write(self.memory, self.operation_code)
+        elif self.operation_code == 20:
+            ins.load(self.memory, self.operation_code)
+        elif self.operation_code == 21:
+            ins.store(self.memory, self.operation_code, self.accumulator)
+
+
+        elif self.operation_code == 30:
+            self.accumulator = ins.add(self.memory, self.operation_code, self.accumulator)
+        elif self.operation_code == 31:
+            self.accumulator = ins.subtract(self.memory, self.operation_code, self.accumulator)
+        elif self.operation_code == 32:
+            self.accumulator = ins.divide(self.memory, self.operation_code, self.accumulator)
+        elif self.operation_code == 33:
+            self.accumulator = ins.multiply(self.memory, self.operation_code, self.accumulator)
+
+        elif self.operation_code == 40:
+            self.instruction_counter = ins.branch(self.operation_code)
+        elif self.operation_code == 41:
+            self.instruction_counter = ins.branchneg(self.operation_code, self.accumulator)
+        elif self.operation_code == 42:
+            self.instruction_counter = ins.branchzero(self.operation_code, self.accumulator)
+        
+        elif self.operation_code == 43:
+            ins.halt()
+        
+
 
     def log_error(self, error_msg):
         """  
