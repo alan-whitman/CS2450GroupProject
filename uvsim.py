@@ -1,10 +1,20 @@
 from basicml import BasicML
+import sys
 
 def main():
     bml = BasicML()
-    bml.initial_prompt()
-    while bml.get_next_instruction():
-        pass
+    if len(sys.argv) > 1:
+        try:
+            for i in range(1, len(sys.argv)):
+                bml.memory[i - 1] = int(sys.argv[i])
+            bml.instruction_counter = len(sys.argv) - 1
+        except:
+            print("Unable to convert command line argument to integer")
+            exit()
+    else:
+        bml.initial_prompt()
+        while bml.get_next_instruction():
+            pass
     print("*** Loading Program... ***")
     program_is_valid = bml.validate_program()
     if program_is_valid:
