@@ -97,7 +97,7 @@ class BasicML:
         print("*** Please enter your program one instruction ***")
         print("*** (or data word) at a time into the input ***")
         print("*** text field. I will display the location ***")
-        print("*** number and a question mar(?). You then ***")
+        print("*** number and a question mark (?). You then ***")
         print("*** type the word for that location. Enter ***")
         print("*** -99999 to stop entering your program. ***")
 
@@ -131,6 +131,9 @@ class BasicML:
                     counter should be incremented.
                 4.  Return false once the user inputs -99999
         """
+        if self.instruction_counter > 99:
+            print("Maximum number of instructions reached.")
+            return False
         print(f"{self.instruction_counter:02} ? ", end="")
         user_input = input()
         if user_input == "-99999":
