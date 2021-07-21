@@ -9,7 +9,7 @@ def main():
                 bml.memory[i - 1] = int(sys.argv[i])
             bml.instruction_counter = len(sys.argv) - 1
         except:
-            print("Unable to convert command line argument to integer")
+            print("Unable to convert command line argument to integer. Aborting.")
             exit()
     else:
         bml.initial_prompt()

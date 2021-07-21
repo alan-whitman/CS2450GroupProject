@@ -26,7 +26,7 @@ def read(memory, operand):
             memory[operand] = int(user_input)
             is_valid_input = True
         else:
-            print("Invalild input.")
+            print("Invalid input (must be a number between -9999 and 9999).")
 
 def write(memory, operand):
     '''Write a word from the specific location 
