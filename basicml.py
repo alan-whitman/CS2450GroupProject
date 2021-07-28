@@ -1,4 +1,10 @@
-import instructions as ins
+import operators as ops
+
+operators = {
+    10: ops.Read(),
+    21: ops.Store(),
+    33: ops.Multiply()
+}
 
 class BasicML:
     def __init__(self):
@@ -29,30 +35,7 @@ class BasicML:
         self.operation_code = self.instruction_register // 100
         self.operand = self.instruction_register % 100
 
-        if self.operation_code == 10:
-            ins.read(self.memory, self.operand)
-        elif self.operation_code == 11:
-            ins.write(self.memory, self.operand)
-        elif self.operation_code == 20:
-            self.accumulator = ins.load(self.memory, self.operand)
-        elif self.operation_code == 21:
-            ins.store(self.memory, self.operand, self.accumulator)
-
-        elif self.operation_code == 30:
-            self.accumulator = ins.add(self.memory, self.operand, self.accumulator)
-        elif self.operation_code == 31:
-            self.accumulator = ins.subtract(self.memory, self.operand, self.accumulator)
-        elif self.operation_code == 32:
-            self.accumulator = ins.divide(self.memory, self.operand, self.accumulator)
-        elif self.operation_code == 33:
-            self.accumulator = ins.multiply(self.memory, self.operand, self.accumulator)
-
-        elif self.operation_code == 40:
-            self.instruction_counter = ins.branch(self.operand)
-        elif self.operation_code == 41:
-            self.instruction_counter = ins.branchneg(self.operand, self.accumulator, self.instruction_counter)
-        elif self.operation_code == 42:
-            self.instruction_counter = ins.branchzero(self.operand, self.accumulator, self.instruction_counter)        
+        operators[self.operation_code].execute(self)
 
     def log_error(self, error_msg):
         """  
