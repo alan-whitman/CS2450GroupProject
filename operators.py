@@ -32,3 +32,11 @@ class Multiply(Operator):
 class Store(Operator):
     def execute(self, bml):
         bml.memory[bml.operand] = bml.accumulator
+
+class Read(Operator):
+    def execute(self, bml):
+        return bml.memory[bml.operand]
+
+class Divide(Operator):
+    def execute(self, bml):
+        return bml.accumulator // bml.memory[bml.operand]
