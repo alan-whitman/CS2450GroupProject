@@ -3,7 +3,11 @@ import operators as ops
 operators = {
     10: ops.Read(),
     21: ops.Store(),
-    33: ops.Multiply()
+    33: ops.Multiply(),
+    11: ops.Write(),
+    30: ops.Add(),
+    40: ops.Branch(),
+    41: ops.BranchNeg()
 }
 
 class BasicML:

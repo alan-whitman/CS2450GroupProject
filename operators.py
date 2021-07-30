@@ -32,3 +32,22 @@ class Multiply(Operator):
 class Store(Operator):
     def execute(self, bml):
         bml.memory[bml.operand] = bml.accumulator
+
+class Write(Operator):
+    def execute(self, bml):
+        print(f"Contents of {bml.operand} is {bml.memory[bml.operand]}")
+
+class Add(Operator):
+    def execute(self, bml):
+       bml.accumulator = bml.memory[bml.operand] + bml.accumulator
+
+class Branch(Operator):
+    def execute(self, bml):
+        return bml.operand
+
+class BranchNeg(Operator):
+    def execute(self, bml):
+        if bml.accumulator < 0:
+            return bml.operand
+            
+        return bml.instruction_counter
