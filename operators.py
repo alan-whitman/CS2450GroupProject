@@ -43,11 +43,9 @@ class Add(Operator):
 
 class Branch(Operator):
     def execute(self, bml):
-        return bml.operand
+        bml.instruction_counter = bml.operand
 
 class BranchNeg(Operator):
     def execute(self, bml):
         if bml.accumulator < 0:
             return bml.operand
-            
-        return bml.instruction_counter
