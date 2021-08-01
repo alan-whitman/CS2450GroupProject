@@ -26,9 +26,9 @@ class BasicML:
         """
         if instruction == 43:
             return True
-        if (instruction < 10000 or instruction > 4299):
+        if (instruction < 10000 or instruction > 42999):
             return False
-        return (instruction // 100) in operators.keys()
+        return (instruction // 1000) in operators.keys()
 
     def run_instruction(self):
         """ 
