@@ -5,7 +5,9 @@ operators = {
     21: ops.Store(),
     33: ops.Multiply(),
     11: ops.Write(),
+    20: ops.Load(),
     30: ops.Add(),
+    32: ops.Divide(),
     40: ops.Branch(),
     41: ops.BranchNeg()
 }
@@ -36,11 +38,13 @@ class BasicML:
             private
             Run the next instruction, which should be in the instruction register when this is called.
         """
-        self.operation_code = self.instruction_register // 100
-        self.operand = self.instruction_register % 100
+        self.operation_code = self.instruction_register // 1000
+        self.operand = self.instruction_register % 1000
 
-        operators[self.operation_code].execute(self)
-
+        if self.operand < 100 or self.operation_code == 22:
+            operators[self.operation_code].execute(self)
+        else:
+            print("Operand > 100")
     def log_error(self, error_msg):
         """  
             Jarrett Minton
