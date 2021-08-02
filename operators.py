@@ -49,3 +49,11 @@ class BranchNeg(Operator):
     def execute(self, bml):
         if bml.accumulator < 0:
             bml.instruction_counter = bml.operand
+            
+class Load(Operator):
+    def execute(self, bml):
+        bml.accumulator = bml.memory[bml.operand]
+
+class Divide(Operator):
+    def execute(self, bml):
+        bml.accumulator = bml.accumulator // bml.memory[bml.operand]
