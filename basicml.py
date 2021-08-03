@@ -2,11 +2,18 @@ import operators as ops
 
 operators = {
     10: ops.Read(),
+    11: ops.Write(),
     12: ops.WriteAscii(),
+    20: ops.Load(),
     21: ops.Store(),
+    22: ops.SetAccum(),
+    30: ops.Add(),
     31: ops.Subtract(),
+    32: ops.Divide(),
     33: ops.Multiply(),
-    42: ops.BranchZero()
+    40: ops.Branch(),
+    41: ops.BranchNeg(),
+    42: ops.BranchZero(),
 }
 
 
@@ -26,9 +33,9 @@ class BasicML:
         """
         if instruction == 43:
             return True
-        if (instruction < 1000 or instruction > 4299):
+        if (instruction < 10000 or instruction > 42999):
             return False
-        return (instruction // 100) in [10, 11, 20, 21, 30, 31, 32, 33, 40, 41, 42]
+        return (instruction // 1000) in operators.keys()
 
     def run_instruction(self):
         """ 
@@ -36,10 +43,13 @@ class BasicML:
             private
             Run the next instruction, which should be in the instruction register when this is called.
         """
-        self.operation_code = self.instruction_register // 100
-        self.operand = self.instruction_register % 100
+        self.operation_code = self.instruction_register // 1000
+        self.operand = self.instruction_register % 1000
 
-        operators[self.operation_code].execute(self)
+        if self.operand < 100 or self.operation_code == 22:
+            operators[self.operation_code].execute(self)
+        else:
+            self.log_error(f"Instruction in memory location {self.instruction_counter - 1} invalid (Operand > 100). Instruction not executed.")
 
     def log_error(self, error_msg):
         """  
@@ -86,7 +96,7 @@ class BasicML:
         print("*** text field. I will display the location ***")
         print("*** number and a question mark (?). You then ***")
         print("*** type the word for that location. Enter ***")
-        print("*** -99999 to stop entering your program. ***")
+        print("*** -999999 to stop entering your program. ***")
 
     def validate_program(self):
         """
@@ -116,14 +126,14 @@ class BasicML:
                     display an error, then prompt again for the same memory location. If it is valid, the
                     instruction should be stored in the corresponding memory location, and the instruction
                     counter should be incremented.
-                4.  Return false once the user inputs -99999
+                4.  Return false once the user inputs -999999
         """
         if self.instruction_counter > 99:
             print("Maximum number of instructions reached.")
             return False
         print(f"{self.instruction_counter:02} ? ", end="")
         user_input = input()
-        if user_input == "-99999":
+        if user_input == "-999999":
             return False
         instruction = 0
         try:
