@@ -47,7 +47,11 @@ class Add(Operator):
 
 class Divide(Operator):
     def execute(self, bml):
-        bml.accumulator = bml.accumulator // bml.memory[bml.operand]
+        try:
+            bml.accumulator = bml.accumulator // bml.memory[bml.operand]
+        except:
+            bml.log_error(f"Attempt to divide by zero. Accumulator set to zero.")
+            bml.accumlator = 0
 
 class Multiply(Operator):
     def execute(self, bml):
