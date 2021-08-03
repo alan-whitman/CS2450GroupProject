@@ -2,14 +2,15 @@ import operators as ops
 
 operators = {
     10: ops.Read(),
-    21: ops.Store(),
-    33: ops.Multiply(),
     11: ops.Write(),
     20: ops.Load(),
+    21: ops.Store(),
+    22: ops.SetAccum(),
     30: ops.Add(),
     32: ops.Divide(),
+    33: ops.Multiply(),
     40: ops.Branch(),
-    41: ops.BranchNeg()
+    41: ops.BranchNeg(),
 }
 
 class BasicML:
@@ -44,7 +45,8 @@ class BasicML:
         if self.operand < 100 or self.operation_code == 22:
             operators[self.operation_code].execute(self)
         else:
-            print("Operand > 100")
+            self.log_error(f"Instruction in memory location {self.instruction_counter - 1} invalid (Operand > 100). Instruction not executed.")
+
     def log_error(self, error_msg):
         """  
             Jarrett Minton
