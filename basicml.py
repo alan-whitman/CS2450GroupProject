@@ -2,9 +2,13 @@ import operators as ops
 
 operators = {
     10: ops.Read(),
+    12: ops.WriteAscii(),
     21: ops.Store(),
-    33: ops.Multiply()
+    31: ops.Subtract(),
+    33: ops.Multiply(),
+    42: ops.BranchZero()
 }
+
 
 class BasicML:
     def __init__(self):
@@ -156,5 +160,6 @@ class BasicML:
                 self.run_instruction()
 
             else:
-                self.log_error(f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution.")
+                self.log_error(
+                    f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution.")
                 break
