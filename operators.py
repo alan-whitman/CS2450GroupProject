@@ -25,21 +25,33 @@ class Read(Operator):
             else:
                 print("Invalid input (must be a number between -9999 and 9999).")
 
-class Multiply(Operator):
+class Write(Operator):
     def execute(self, bml):
-        bml.accumulator = bml.memory[bml.operand] * bml.accumulator
+        print(f"Contents of {bml.operand} is {bml.memory[bml.operand]}")
+
+class Load(Operator):
+    def execute(self, bml):
+        bml.accumulator = bml.memory[bml.operand]
 
 class Store(Operator):
     def execute(self, bml):
         bml.memory[bml.operand] = bml.accumulator
 
-class Write(Operator):
+class SetAccum(Operator):
     def execute(self, bml):
-        print(f"Contents of {bml.operand} is {bml.memory[bml.operand]}")
+        bml.accumulator = bml.operand
 
 class Add(Operator):
     def execute(self, bml):
        bml.accumulator = bml.memory[bml.operand] + bml.accumulator
+
+class Divide(Operator):
+    def execute(self, bml):
+        bml.accumulator = bml.accumulator // bml.memory[bml.operand]
+
+class Multiply(Operator):
+    def execute(self, bml):
+        bml.accumulator = bml.memory[bml.operand] * bml.accumulator
 
 class Branch(Operator):
     def execute(self, bml):
@@ -49,11 +61,3 @@ class BranchNeg(Operator):
     def execute(self, bml):
         if bml.accumulator < 0:
             bml.instruction_counter = bml.operand
-            
-class Load(Operator):
-    def execute(self, bml):
-        bml.accumulator = bml.memory[bml.operand]
-
-class Divide(Operator):
-    def execute(self, bml):
-        bml.accumulator = bml.accumulator // bml.memory[bml.operand]
