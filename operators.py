@@ -29,6 +29,17 @@ class Write(Operator):
     def execute(self, bml):
         print(f"Contents of {bml.operand} is {bml.memory[bml.operand]}")
 
+class WriteAscii(Operator):
+    def execute(self, bml):
+        print(chr(bml.memory[bml.operand]), end="")
+        # instruction = str(bml.memory[bml.operand])
+        # ascii_symbol = instruction[2:]
+        # if ascii_symbol[0] == '0':
+        #     ascii_symbol = int(instruction[3:])
+        # if ascii_symbol[0] == '0' and ascii_symbol[1] == '0':
+        #     ascii_symbol = int(instruction[4])
+        # print(chr(ascii_symbol))
+
 class Load(Operator):
     def execute(self, bml):
         bml.accumulator = bml.memory[bml.operand]
@@ -44,6 +55,10 @@ class SetAccum(Operator):
 class Add(Operator):
     def execute(self, bml):
        bml.accumulator = bml.memory[bml.operand] + bml.accumulator
+
+class Subtract(Operator):
+    def execute(self, bml):
+        bml.accumulator = bml.accumulator - bml.memory[bml.operand]
 
 class Divide(Operator):
     def execute(self, bml):
@@ -64,4 +79,9 @@ class Branch(Operator):
 class BranchNeg(Operator):
     def execute(self, bml):
         if bml.accumulator < 0:
+            bml.instruction_counter = bml.operand
+
+class BranchZero(Operator):
+    def execute(self, bml):
+        if bml.accumulator == 0:
             bml.instruction_counter = bml.operand

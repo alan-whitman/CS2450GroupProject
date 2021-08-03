@@ -3,15 +3,19 @@ import operators as ops
 operators = {
     10: ops.Read(),
     11: ops.Write(),
+    12: ops.WriteAscii(),
     20: ops.Load(),
     21: ops.Store(),
     22: ops.SetAccum(),
     30: ops.Add(),
+    31: ops.Subtract(),
     32: ops.Divide(),
     33: ops.Multiply(),
     40: ops.Branch(),
     41: ops.BranchNeg(),
+    42: ops.BranchZero(),
 }
+
 
 class BasicML:
     def __init__(self):
@@ -92,7 +96,7 @@ class BasicML:
         print("*** text field. I will display the location ***")
         print("*** number and a question mark (?). You then ***")
         print("*** type the word for that location. Enter ***")
-        print("*** -99999 to stop entering your program. ***")
+        print("*** -999999 to stop entering your program. ***")
 
     def validate_program(self):
         """
@@ -122,14 +126,14 @@ class BasicML:
                     display an error, then prompt again for the same memory location. If it is valid, the
                     instruction should be stored in the corresponding memory location, and the instruction
                     counter should be incremented.
-                4.  Return false once the user inputs -99999
+                4.  Return false once the user inputs -999999
         """
         if self.instruction_counter > 99:
             print("Maximum number of instructions reached.")
             return False
         print(f"{self.instruction_counter:02} ? ", end="")
         user_input = input()
-        if user_input == "-99999":
+        if user_input == "-999999":
             return False
         instruction = 0
         try:
@@ -166,5 +170,6 @@ class BasicML:
                 self.run_instruction()
 
             else:
-                self.log_error(f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution.")
+                self.log_error(
+                    f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution.")
                 break
