@@ -20,9 +20,12 @@ def main():
     if program_is_valid:
         print("*** Program loading completed ***\n*** Program execution begins ***\n")
         bml.run_program()
+        
     else:
         print("*** Program contains invalid instructions. Unable to execute ***")
-    bml.dump()
+    
+    bml.save_file()
+    bml.dump(print)
 
 if __name__ == "__main__":
     main()
