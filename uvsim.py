@@ -1,4 +1,3 @@
-from os import error
 from basicml import BasicML
 import sys
 
