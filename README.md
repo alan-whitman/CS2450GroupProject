@@ -100,4 +100,3 @@ next consecutive memory location.
 
 43 - HALT:
 Halt execution of the program.
-g
