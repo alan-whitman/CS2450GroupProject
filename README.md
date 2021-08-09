@@ -16,7 +16,8 @@ There are three ways to input a program into UVSim:
 1.  Run UVSim from the command line with no command line parameters (e.g. "python uvsim.py" or "python3 uvsim.py"). 
     UVSim will provide a brief set of instructions, after which users can input instructions into sequential memory 
     addresses one at a time. Entering "-999999" will stop input, attempt to validate the program, and if the program 
-    is valid, run it. If invalid instructions are found in the program, UVSim will alert
+    is valid, run it. If invalid instructions are found in the program, UVSim will alert the users to which memory 
+    locations contain invalid instructions, then exit.
 
 2.  Run a complete program using command line parameters. For example, "python uvsim.py 10050 11050 43" is a valid
     program that will prompt a user for an integer, output the integer, then exit. If UVSim is not able to convert,
