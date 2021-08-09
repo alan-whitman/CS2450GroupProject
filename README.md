@@ -28,7 +28,7 @@ There are three ways to input a program into UVSim:
 
 3.  Run a complete program from a file. For example, "python uvsim.py myprogram.bml" will attempt to open a file called 
     myprogram.bml and interpret each line of the file as a single instruction. As with running a program from command
-    line parameters, if UVSim is not able to convert any instruction to an integer, it will abort.
+    line parameters, if UVSim is not able to convert any, it will default to the main menu.
 
 
 ### Available Instructions
