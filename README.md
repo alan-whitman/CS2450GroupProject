@@ -22,13 +22,13 @@ There are three ways to input a program into UVSim:
     locations contain invalid instructions, then exit.
 
 2.  Run a complete program using command line parameters. For example, "python uvsim.py 10050 11050 43" is a valid
-    program that will prompt a user for an integer, output the integer, then exit. If UVSim is not able to convert,
-    any parameter to an integer (if it has non-numeric characters, for instance), it will abort without validating or 
-    running the program. Otherwise, it will attempt to validate and then run the program.
+    program that will prompt a user for an integer, output the integer, then exit. If UVSim is not able to convert
+    any parameter to an integer (if it has non-numeric characters, for instance), it will default to the main menu. 
+    Otherwise, it will attempt to validate and then run the program.
 
 3.  Run a complete program from a file. For example, "python uvsim.py myprogram.bml" will attempt to open a file called 
     myprogram.bml and interpret each line of the file as a single instruction. As with running a program from command
-    line parameters, if UVSim is not able to convert any instruction to an ingeger, it will abort.
+    line parameters, if UVSim is not able to convert any, it will default to the main menu.
 
 
 ### Available Instructions
@@ -38,7 +38,7 @@ instructions are as follows:
 
 - 10 - READ:     
 
-  - Prompt the user to input an integer between -9999 and 9999, then store is in the location of the operand.
+  - Prompt the user to input an integer between -9999 and 9999, then store it in the memory location of the operand.
 
   - Example: 10050 will prompt the user to input an integer, then store the result in memory location 50.
 
@@ -64,7 +64,7 @@ instructions are as follows:
 
   - Store the value of the accumulator register to a given memory location.
 
-  - Example: Assuming that the value of the accumulator register is 25, 21050 will store 25 in memory locaiton 50.
+  - Example: Assuming that the value of the accumulator register is 25, 21050 will store 25 in memory location 50.
 
 - 22 - SETACCUM:
 
