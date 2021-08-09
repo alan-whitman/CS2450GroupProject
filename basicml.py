@@ -160,7 +160,7 @@ class BasicML:
                         should be stopped.
         """
         self.instruction_counter = 0
-        while True:
+        while self.instruction_counter < 100:
             currentInstruction = self.memory[self.instruction_counter]
             if currentInstruction == 43:
                 print('\n*** Run completed ***\n')
