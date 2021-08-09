@@ -172,7 +172,7 @@ class BasicML:
         
         if(user_input == "y"):
             file_name = input("Please provide the filename: ")
-            file = open(file_name, "a")
+            file = open(file_name, "w")
 
             for m in self.memory:
                 if m == 0:
