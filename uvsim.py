@@ -32,8 +32,10 @@ def main():
         bml.initial_prompt()
         while bml.get_next_instruction():
             pass
+    bml.save_file()
     print("*** Loading Program... ***")
     program_is_valid = bml.validate_program()
+    
     if program_is_valid:
         print("*** Program loading completed ***\n*** Program execution begins ***\n")
         bml.run_program()
@@ -41,7 +43,6 @@ def main():
     else:
         print("*** Program contains invalid instructions. Unable to execute ***")
     
-    bml.save_file()
     bml.dump(print)
 
 if __name__ == "__main__":
