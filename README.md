@@ -38,8 +38,7 @@ instructions are as follows:
 
 - 10 - READ:     
 
-  - Prompt the user to input an integer between -9999 and 9999, then store it in the memort location indicated by the 
-    operand.
+  - Prompt the user to input an integer between -9999 and 9999, then store it in the memory location of the operand.
 
   - Example: 10050 will prompt the user to input an integer, then store the result in memory location 50.
 
