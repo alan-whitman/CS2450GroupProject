@@ -30,7 +30,7 @@ There are three ways to input a program into UVSim:
 Available Instructions
 
 UVSim instructions are 5-digit numbers consisting of a 2-digit opcode, as well as a 3-digit operand. The available
-instructions are as follows:
+instructions are as follows:g
 
 10 - READ:      
 Prompt the user to input an integer between -9999 and 9999, then store is in the location of the operand.
@@ -100,4 +100,3 @@ next consecutive memory location.
 
 43 - HALT:
 Halt execution of the program.
-g
