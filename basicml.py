@@ -179,15 +179,17 @@ class BasicML:
     def save_file(self):
         user_input = ""
         while(user_input != "y" and user_input != "n"):
-            user_input = input("Do you want to save memory to a file(y/n): ")
-        
+            user_input = input("Do you want to save your program to a file(y/n): ")
         if(user_input == "y"):
             file_name = input("Please provide the filename: ")
-            file = open(file_name, "w")
+            try:
+                file = open(file_name, "w")
 
-            for m in self.memory:
-                if m == 0:
-                    break
-                file.write(f"{m} \n")
-            
-            file.close()
+                for m in self.memory:
+                    if m == 0:
+                        break
+                    file.write(f"{m} \n")
+                
+                file.close()
+            except:
+                self.log_error("Unable to save file.")
