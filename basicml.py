@@ -59,30 +59,32 @@ class BasicML:
         """
         print("ERROR: " + error_msg)
 
-    def dump(self):
+    def dump(self, stream, newline_add = False):
         """ 
             public
             Dump register and memory to console, as per spec. 
         """
+        newline = ("", "\n")[newline_add]
 
-        print("REGISTERS:")
-        print(f"Accumulator: {self.accumulator:05}")
-        print(f"InstructionCounter: {self.instruction_counter:02}")
-        print(f"InstructionRegister: {self.instruction_register:05}")
-        print(f"OperationCode: {self.operation_code:02}")
-        print(f"Operand: {self.operand:02}\n")
+        stream(f"REGISTERS: { newline }")
+        stream(f"Accumulator: {self.accumulator:05} { newline }")
+        stream(f"InstructionCounter: {self.instruction_counter:02} { newline }")
+        stream(f"InstructionRegister: {self.instruction_register:05} { newline }")
+        stream(f"OperationCode: {self.operation_code:02} { newline }")
+        stream(f"Operand: {self.operand:02} { newline }")
 
-        print("MEMORY:")
+        stream(f"MEMORY: { newline }")
 
-        print("{:<3} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5}".format(
-            "  ", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09"))
+        stream("{:<3} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5} {:<5}".format(
+            "  ", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09") +  newline)
 
         x = ["00", "10", "20", "30", "40", "50", "60", "70", "80", "90"]
 
         count = 0
         for i in range(0, len(x)):
-            print("{:<3} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5}".format(
-                x[i], self.memory[count], self.memory[count+1], self.memory[count+2], self.memory[count+3], self.memory[count+4], self.memory[count+5], self.memory[count+6], self.memory[count+7], self.memory[count+8], self.memory[count+9]))
+            stream("{:<3} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5} {:0>5}".format(
+                x[i], self.memory[count], self.memory[count+1], self.memory[count+2], self.memory[count+3], self.memory[count+4], self.memory[count+5], self.memory[count+6], self.memory[count+7], self.memory[count+8], self.memory[count+9])
+                + newline)
             count += 10
 
     def initial_prompt(self):
@@ -173,3 +175,16 @@ class BasicML:
                 self.log_error(
                     f"Instruction in memory location {self.instruction_counter:02} is invalid. Unable to continue execution.")
                 break
+
+    def save_file(self):
+        user_input = ""
+        while(user_input != "y" and user_input != "n"):
+            user_input = input("Do you want to save memory to a file(y/n): ")
+        
+        if(user_input == "y"):
+            file_name = input("Please provide the filename: ")
+
+            file = open(file_name, "a")
+            self.dump(file.write, True)
+            
+            file.close()
