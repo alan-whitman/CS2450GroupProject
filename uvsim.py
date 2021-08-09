@@ -27,6 +27,7 @@ def main():
                 print("Failed to read file or command line arguments." )
                 print("Loading main menu...\n\n")
     if not read_from_file_or_command_line:
+        bml.reset()
         bml.initial_prompt()
         while bml.get_next_instruction():
             pass

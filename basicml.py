@@ -19,6 +19,9 @@ operators = {
 
 class BasicML:
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         self.memory = [0] * 100
         self.accumulator = 0
         self.instruction_counter = 0
